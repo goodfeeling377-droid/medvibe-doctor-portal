@@ -2019,7 +2019,7 @@ header {
     }
 }
 
-/* Hero Section banner scaling */
+/* Hero Section banner and Scheduling container scaling */
 @media (max-width: 600px) {
     .hero-banner {
         padding: 3rem 1.5rem;
@@ -2029,6 +2029,10 @@ header {
     }
     .hero-banner p {
         font-size: 0.95rem;
+    }
+    
+    .scheduling-container {
+        padding: 1.5rem 1rem;
     }
 }
 
@@ -2101,5 +2105,23 @@ header {
     
     .carousel-date-range {
         font-size: 0.9rem;
+    }
+
+    /* Fix scheduling slots lists and headers padding to avoid overflow */
+    .calendar-col {
+        padding: 0.85rem 0.75rem;
+    }
+
+    .calendar-date-header {
+        font-size: 0.95rem;
+    }
+
+    .slot-btn {
+        padding: 0.65rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .slot-status-txt {
+        font-size: 0.75rem;
     }
 }
