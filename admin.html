@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedVibe | Secure Administration Console</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Shared Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background: radial-gradient(circle at center, #f8fafc 0%, #cbd5e1 100%); min-height: 100vh;">
+
+    <!-- Secure Header -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>MedVibe Admin</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 800; color: var(--accent-indigo); font-size: 0.9rem; text-transform: uppercase; border: 1px solid var(--accent-indigo-glow); background: rgba(79, 70, 229, 0.05); padding: 0.35rem 0.85rem; border-radius: 20px;">
+            <i class="fa-solid fa-shield-halved"></i> Root Administration
+        </div>
+    </header>
+
+    <main class="main-container" style="max-width: 900px; margin: 3rem auto;">
+        
+        <!-- ================= ADMIN LOGIN GATE ================= -->
+        <div id="admin-login-pane" class="login-wrapper">
+            <div class="login-card">
+                <div class="login-icon-header" style="background: rgba(79, 70, 229, 0.08); color: var(--accent-indigo); border-color: rgba(79, 70, 229, 0.15);">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3>Clinic Control Console</h3>
+                <p>Enter your Administrator Passcode to access configurations, toggle payment methods, and reset scheduling databases.</p>
+                
+                <div id="admin-login-error" class="login-error" style="display: none;">
+                    <i class="fa-solid fa-circle-exclamation"></i> Incorrect admin PIN. Please try again.
+                </div>
+
+                <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
+                    <label for="admin-pin">Administrator PIN</label>
+                    <input type="password" id="admin-pin" class="form-control" placeholder="••••" maxlength="4" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;" onkeydown="if(event.key === 'Enter') attemptAdminLogin()">
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, var(--accent-indigo), #4f46e5); box-shadow: 0 4px 0 var(--accent-indigo-dark), 0 8px 12px rgba(79, 70, 229, 0.2);" onclick="attemptAdminLogin()">
+                    Access Console <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= AUTHENTICATED ADMIN WORKSPACE ================= -->
+        <div id="admin-workspace-pane" class="portal-view" style="display: none;">
+            <div class="doctor-dash">
+                
+                <!-- Welcome Title -->
+                <div class="dash-heading">
+                    <div>
+                        <h2>System Control Panel</h2>
+                        <p style="color: var(--text-secondary); margin-top: 0.25rem;">Configure doctor profiles, fees, active gateways, and reset system cache.</p>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="adminLogout()">
+                        <i class="fa-solid fa-power-off"></i> Logout
+                    </button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start;">
+                    
+                    <!-- Left: Doctor Profiles Config -->
+                    <div class="requests-panel" style="margin-top: 0;">
+                        <h3><i class="fa-solid fa-user-doctor" style="color: var(--accent-teal);"></i> Doctor Profiles</h3>
+                        
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label for="admin-doc-select">Select Doctor Profile</label>
+                            <select id="admin-doc-select" class="form-control" onchange="loadSelectedDocProfile()" style="background: #f8fafc;">
+                                <option value="1">Dr. Vishal Parmar (Skin Specialist)</option>
+                                <option value="2">Dr. Ananya Sharma (Pediatrician)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-doc-name">Doctor's Full Name</label>
+                            <input type="text" id="admin-doc-name" class="form-control" placeholder="Dr. Vishal Parmar">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-doc-specialty">Specialty Tag</label>
+                            <input type="text" id="admin-doc-specialty" class="form-control" placeholder="Skin Specialist">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-doc-title">Qualifications & Education</label>
+                            <input type="text" id="admin-doc-title" class="form-control" placeholder="MS, MD (Dermatology)">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-doc-fee">Consultation Fee (₹)</label>
+                            <input type="number" id="admin-doc-fee" class="form-control" placeholder="800">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label for="admin-doc-pin">Security PIN (Login)</label>
+                            <input type="text" id="admin-doc-pin" class="form-control" placeholder="1111" maxlength="4">
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%;" onclick="saveSelectedDocProfile()">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Profile Details
+                        </button>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        
+                        <!-- Right Top: Payment Gateway Settings -->
+                        <div class="requests-panel" style="margin-top: 0;">
+                            <h3><i class="fa-solid fa-wallet" style="color: var(--accent-indigo);"></i> Gateway Settings</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+                                <label style="display: flex; align-items: center; gap: 0.75rem; font-weight: 700; color: var(--text-primary); cursor: pointer;">
+                                    <input type="checkbox" id="gate-enable-card" style="width: 18px; height: 18px;" checked>
+                                    Enable Credit/Debit Card Option
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 0.75rem; font-weight: 700; color: var(--text-primary); cursor: pointer;">
+                                    <input type="checkbox" id="gate-enable-upi" style="width: 18px; height: 18px;" checked>
+                                    Enable UPI QR Scan Option
+                                </label>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label for="gate-upi-id">Active Clinic UPI Address</label>
+                                <input type="text" id="gate-upi-id" class="form-control" placeholder="medvibe@upi" value="medvibe@upi">
+                            </div>
+
+                            <!-- UPI QR Code File Uploader -->
+                            <div class="form-group" style="margin-bottom: 1.5rem; border-top: 1px solid rgba(15, 23, 42, 0.08); padding-top: 1rem;">
+                                <label for="gate-qr-file" style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fa-solid fa-qrcode" style="color: var(--accent-indigo);"></i> Upload Custom UPI QR Code Image
+                                </label>
+                                <input type="file" id="gate-qr-file" class="form-control" accept="image/*" onchange="handleQRImageUpload(event)" style="padding: 0.4rem;">
+                                <p style="font-size:0.7rem; color:var(--text-secondary); margin-top:0.25rem;">Supports JPG, PNG, or SVG. Uploaded QR code will display instantly in checkout.</p>
+                                
+                                <!-- QR Live Preview Panel -->
+                                <div id="gate-qr-preview-box" style="margin-top: 1rem; display: none; text-align: center; background: #f8fafc; padding: 0.75rem; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                                    <span style="font-size:0.75rem; color:var(--text-primary); font-weight:700; display:block; margin-bottom:0.4rem;">QR Code Preview:</span>
+                                    <img id="gate-qr-preview-img" src="" alt="QR Preview" style="width:120px; height:120px; border:1px solid #cbd5e1; border-radius: 4px; padding: 0.25rem; background: white; margin: 0 auto;">
+                                    <div>
+                                        <button class="btn btn-reject btn-sm" onclick="clearUploadedQR()" style="margin-top:0.5rem; padding: 0.25rem 0.6rem; font-size:0.7rem; display:inline-flex; width:auto; height:auto;">
+                                            <i class="fa-solid fa-trash-can"></i> Remove QR Image
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, var(--accent-indigo), #4f46e5); box-shadow: 0 4px 0 var(--accent-indigo-dark), 0 8px 12px rgba(79, 70, 229, 0.2);" onclick="savePaymentGatewaySettings()">
+                                <i class="fa-solid fa-shield-halved"></i> Update Payment Gateway
+                            </button>
+                        </div>
+
+                        <!-- Right Bottom: Database Wipe & Reset -->
+                        <div class="requests-panel" style="margin-top: 0; border-color: rgba(220, 38, 38, 0.15);">
+                            <h3 style="color: #dc2626;"><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.25rem;">Clears scheduling slots database cache and loads all defaults for testing purposes.</p>
+                            
+                            <button class="btn btn-reject" style="width: 100%; padding: 0.75rem 1rem;" onclick="resetClinicDatabaseCache()">
+                                <i class="fa-solid fa-arrows-rotate"></i> Reset Database Slots
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 5rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-glass); padding: 2rem;">
+        &copy; 2026 MedVibe System Administration Console. Saket, New Delhi.
+    </footer>
+
+    <!-- Admin Panel Logic -->
+    <script>
+        // Default Doctors definition for system reset
+        const defaultDoctorsBackup = {
+            1: {
+                id: 1,
+                name: "Dr. Vishal Parmar",
+                specialty: "Skin Specialist",
+                fee: 800,
+                pin: "1111",
+                avatar: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=80&auto=format&fit=crop&q=80"
+            },
+            2: {
+                id: 2,
+                name: "Dr. Ananya Sharma",
+                specialty: "Pediatrician",
+                fee: 600,
+                pin: "2222",
+                avatar: "https://images.unsplash.com/photo-1594824813573-246434de83fb?w=80&auto=format&fit=crop&q=80"
+            }
+        };
+
+        let currentDoctors = {};
+        let currentPaySettings = {};
+        let uploadedQRBase64 = "";
+
+        window.onload = () => {
+            // Check auth session
+            const auth = sessionStorage.getItem('medvibe_auth_admin');
+            if (auth === 'true') {
+                loadAdminWorkspace();
+            } else {
+                document.getElementById('admin-login-pane').style.display = 'flex';
+                document.getElementById('admin-pin').focus();
+            }
+        };
+
+        function attemptAdminLogin() {
+            const pin = document.getElementById('admin-pin').value.trim();
+            const error = document.getElementById('admin-login-error');
+            
+            if (pin === '9999') {
+                error.style.display = 'none';
+                document.getElementById('admin-pin').value = '';
+                sessionStorage.setItem('medvibe_auth_admin', 'true');
+                loadAdminWorkspace();
+            } else {
+                error.style.display = 'block';
+                document.getElementById('admin-pin').value = '';
+            }
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem('medvibe_auth_admin');
+            window.location.reload();
+        }
+
+        function loadAdminWorkspace() {
+            document.getElementById('admin-login-pane').style.display = 'none';
+            document.getElementById('admin-workspace-pane').style.display = 'block';
+
+            // Load Doctors
+            const savedDocs = localStorage.getItem('medvibe_doctors');
+            if (savedDocs) {
+                currentDoctors = JSON.parse(savedDocs);
+            } else {
+                currentDoctors = {...defaultDoctorsBackup};
+                localStorage.setItem('medvibe_doctors', JSON.stringify(currentDoctors));
+            }
+
+            // Load Payment Toggles
+            const savedPay = localStorage.getItem('medvibe_pay_settings');
+            if (savedPay) {
+                currentPaySettings = JSON.parse(savedPay);
+            } else {
+                currentPaySettings = {
+                    cardEnabled: true,
+                    upiEnabled: true,
+                    upiId: "medvibe@upi",
+                    qrImageBase64: ""
+                };
+                localStorage.setItem('medvibe_pay_settings', JSON.stringify(currentPaySettings));
+            }
+
+            loadSelectedDocProfile();
+            loadPaymentGatewayFields();
+        }
+
+        function loadSelectedDocProfile() {
+            const docId = parseInt(document.getElementById('admin-doc-select').value);
+            const doc = currentDoctors[docId];
+
+            if (doc) {
+                document.getElementById('admin-doc-name').value = doc.name;
+                document.getElementById('admin-doc-specialty').value = doc.specialty;
+                document.getElementById('admin-doc-title').value = doc.title || (docId === 1 ? "MS, MD (Dermatology) - AIIMS Delhi" : "MD (Pediatrics) - KGMU Lucknow");
+                document.getElementById('admin-doc-fee').value = doc.fee;
+                document.getElementById('admin-doc-pin').value = doc.pin;
+            }
+        }
+
+        function saveSelectedDocProfile() {
+            const docId = parseInt(document.getElementById('admin-doc-select').value);
+            const doc = currentDoctors[docId];
+
+            if (doc) {
+                const name = document.getElementById('admin-doc-name').value.trim();
+                const specialty = document.getElementById('admin-doc-specialty').value.trim();
+                const title = document.getElementById('admin-doc-title').value.trim();
+                const fee = parseInt(document.getElementById('admin-doc-fee').value);
+                const pin = document.getElementById('admin-doc-pin').value.trim();
+
+                if (!name || !specialty || !title || isNaN(fee) || !pin) {
+                    alert("Please fill in all doctor details correctly.");
+                    return;
+                }
+
+                doc.name = name;
+                doc.specialty = specialty;
+                doc.title = title;
+                doc.fee = fee;
+                doc.pin = pin;
+
+                localStorage.setItem('medvibe_doctors', JSON.stringify(currentDoctors));
+                alert("Doctor Profile updated successfully! Cross-tab pages updated.");
+            }
+        }
+
+        function loadPaymentGatewayFields() {
+            document.getElementById('gate-enable-card').checked = currentPaySettings.cardEnabled;
+            document.getElementById('gate-enable-upi').checked = currentPaySettings.upiEnabled;
+            document.getElementById('gate-upi-id').value = currentPaySettings.upiId;
+
+            uploadedQRBase64 = currentPaySettings.qrImageBase64 || "";
+            const previewBox = document.getElementById('gate-qr-preview-box');
+            const previewImg = document.getElementById('gate-qr-preview-img');
+            if (previewBox && previewImg) {
+                if (uploadedQRBase64) {
+                    previewImg.src = uploadedQRBase64;
+                    previewBox.style.display = 'block';
+                } else {
+                    previewBox.style.display = 'none';
+                    previewImg.src = "";
+                }
+            }
+        }
+
+        function handleQRImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedQRBase64 = e.target.result;
+                    
+                    // Update preview
+                    const previewBox = document.getElementById('gate-qr-preview-box');
+                    const previewImg = document.getElementById('gate-qr-preview-img');
+                    if (previewBox && previewImg) {
+                        previewImg.src = uploadedQRBase64;
+                        previewBox.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function clearUploadedQR() {
+            uploadedQRBase64 = "";
+            document.getElementById('gate-qr-file').value = "";
+            document.getElementById('gate-qr-preview-box').style.display = 'none';
+            document.getElementById('gate-qr-preview-img').src = "";
+        }
+
+        function savePaymentGatewaySettings() {
+            const cardEnabled = document.getElementById('gate-enable-card').checked;
+            const upiEnabled = document.getElementById('gate-enable-upi').checked;
+            const upiId = document.getElementById('gate-upi-id').value.trim();
+
+            if (!cardEnabled && !upiEnabled) {
+                alert("Error: At least one payment method (Card or UPI) must be enabled!");
+                return;
+            }
+
+            if (!upiId) {
+                alert("Please enter a valid clinic UPI address.");
+                return;
+            }
+
+            currentPaySettings.cardEnabled = cardEnabled;
+            currentPaySettings.upiEnabled = upiEnabled;
+            currentPaySettings.upiId = upiId;
+            currentPaySettings.qrImageBase64 = uploadedQRBase64;
+
+            localStorage.setItem('medvibe_pay_settings', JSON.stringify(currentPaySettings));
+            alert("Payment gateway configurations updated successfully!");
+        }
+
+        function resetClinicDatabaseCache() {
+            if (confirm("Are you sure you want to clear all active bookings and reset system slots to default?")) {
+                localStorage.removeItem('medvibe_slots');
+                localStorage.removeItem('medvibe_chats');
+                localStorage.removeItem('medvibe_doctors');
+                localStorage.removeItem('medvibe_pay_settings');
+                alert("System database cache wiped successfully. Re-syncing configurations.");
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

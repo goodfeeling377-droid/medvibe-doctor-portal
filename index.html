@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedVibe | Premium Healthcare & Doctor Booking</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Local Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>MedVibe</span>
+        </div>
+        <nav class="main-nav">
+            <a href="#hero">Home</a>
+            <a href="#doctors">Doctors</a>
+            <a href="#scheduling-section">Appointments</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div>
+            <a href="doctor.html" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration: none; border-color: var(--accent-teal); color: var(--accent-teal);">
+                <i class="fa-solid fa-user-doctor"></i> Doctor Login
+            </a>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="hero" class="hero-banner" style="margin-top: 1.5rem;">
+        <h1>Compassionate Care, <span>Modern Technology</span></h1>
+        <p>Book instant appointments, secure your consultation slot via digital UPI payments, and consult online with our highly experienced medical specialists.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+            <a href="#scheduling-section" class="btn btn-primary" style="text-decoration: none; max-width: 250px;">
+                <i class="fa-regular fa-calendar-check"></i> Book Appointment Now
+            </a>
+            <a href="#doctors" class="btn btn-secondary" style="text-decoration: none; max-width: 250px;">
+                <i class="fa-solid fa-users-medical"></i> View Doctors
+            </a>
+        </div>
+    </section>
+
+    <main class="main-container" style="margin-top: 0; padding-top: 0;">
+
+        <!-- ================= CLINIC FEATURES GRID ================= -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-circle-check"></i>
+                <h5>Instant Confirmation</h5>
+                <p>Slots are locked in real-time as pending after payment and confirmed by the doctor.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-qrcode"></i>
+                <h5>UPI & Card Payments</h5>
+                <p>Complete booking fees via Google Pay, Paytm, PhonePe, or credit cards instantly.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-comment-medical"></i>
+                <h5>Consultation Chat</h5>
+                <p>Send files, text summaries, and receive digital prescriptions through the chat room.</p>
+            </div>
+        </section>
+
+        <!-- ================= OUR MEDICAL SPECIALISTS ================= -->
+        <section id="doctors" style="margin-bottom: 5rem;">
+            <div class="section-title-wrapper">
+                <h2>Meet Our Specialists</h2>
+                <p>Highly qualified doctors with decades of cumulative clinical excellence.</p>
+            </div>
+            
+            <div class="doctor-grid">
+                
+                <!-- Doctor 1 Card (Dr. Vishal Parmar - Skin Specialist) -->
+                <article class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-avatar-wrapper">
+                            <img id="doc-avatar-1" class="doctor-avatar" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80" alt="Dr. Vishal Parmar">
+                            <div class="status-badge-online"></div>
+                        </div>
+                        <div class="doctor-meta">
+                            <span id="doc-specialty-1" class="specialty-tag">Skin Specialist</span>
+                            <h3 id="doc-name-1" class="doctor-name">Dr. Vishal Parmar</h3>
+                            <p id="doc-title-1" class="doctor-title">MS, MD (Dermatology) - AIIMS Delhi</p>
+                            <div class="rating">
+                                <i class="fa-solid fa-star"></i> 4.9 (120+ Reviews)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-details-body">
+                        <div class="biodata-section">
+                            <h4><i class="fa-solid fa-scroll"></i> Professional Biography</h4>
+                            <p>Dr. Vishal Parmar is a leading dermatologist and skin specialist with over 14 years of clinical experience. He specializes in clinical dermatology, corrective skin surgeries, laser skin treatments, and anti-aging therapies.</p>
+                        </div>
+                        
+                        <div class="biodata-section">
+                            <h4><i class="fa-solid fa-graduation-cap"></i> Education & Fellowships</h4>
+                            <ul class="biodata-list">
+                                <li>MD in Dermatology, AIIMS Delhi</li>
+                                <li>MS in Surgery, AIIMS Delhi</li>
+                                <li>Fellowship in Aesthetic Medicine, London Skin Clinic</li>
+                            </ul>
+                        </div>
+
+                        <div class="biodata-section">
+                            <h4><i class="fa-solid fa-briefcase"></i> Experience</h4>
+                            <ul class="biodata-list">
+                                <li>Senior Dermatologist at Fortis Hospital Skin Unit (6 Years)</li>
+                                <li>Associate Professor in Dermatology, AIIMS Delhi (4 Years)</li>
+                                <li>Consultant Skincare Specialist, London Laser Center (4 Years)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="price-experience-row">
+                            <div class="info-item">
+                                <span class="info-label">Experience</span>
+                                <span class="info-value">14+ Years</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Consultation Fee</span>
+                                <span id="doc-fee-value-1" class="info-value fee">₹800</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-actions">
+                        <button class="btn btn-secondary" onclick="openChatWithDoc(1)">
+                            <i class="fa-solid fa-comment-medical"></i> Consult & Chat
+                        </button>
+                        <button class="btn btn-primary" onclick="scrollToScheduling(1)">
+                            <i class="fa-solid fa-calendar-check"></i> Book Appointment
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Doctor 2 Card (Dr. Ananya Sharma) -->
+                <article class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-avatar-wrapper">
+                            <img id="doc-avatar-2" class="doctor-avatar" src="https://images.unsplash.com/photo-1594824813573-246434de83fb?w=150&auto=format&fit=crop&q=80" alt="Dr. Ananya Sharma">
+                            <div class="status-badge-online"></div>
+                        </div>
+                        <div class="doctor-meta">
+                            <span id="doc-specialty-2" class="specialty-tag">Pediatrician</span>
+                            <h3 id="doc-name-2" class="doctor-name">Dr. Ananya Sharma</h3>
+                            <p id="doc-title-2" class="doctor-title">MD (Pediatrics) - KGMU Lucknow</p>
+                            <div class="rating">
+                                <i class="fa-solid fa-star"></i> 4.8 (95+ Reviews)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-details-body">
+                        <div class="biodata-section">
+                            <h4><i class="fa-solid fa-scroll"></i> Professional Biography</h4>
+                            <p>Dr. Ananya Sharma is a compassionate pediatrician with a decade of expertise in newborn care, immunization plans, childhood nutrition, and acute pediatric illness management.</p>
+                        </div>
+                        
+                        <div class="biodata-section">
+                            <h4><i class="fa-solid fa-graduation-cap"></i> Education & Fellowships</h4>
+                            <ul class="biodata-list">
+                                <li>MD in Pediatrics, KGMU Lucknow</li>
+                                <li>Fellowship in Pediatric Nutrition, Boston University</li>
+                                <li>Bachelor of Medicine (MBBS), LHMC Delhi</li>
+                            </ul>
+                        </div>
+
+                        <div class="biodata-section">
+                            <h4><i class="fa-solid fa-briefcase"></i> Experience</h4>
+                            <ul class="biodata-list">
+                                <li>Head Pediatrician at Rainbow Children's Clinic (4 Years)</li>
+                                <li>Consultant Pediatrician at Max Healthcare (3 Years)</li>
+                                <li>Resident Pediatric Division at Boston Children's Hospital (3 Years)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="price-experience-row">
+                            <div class="info-item">
+                                <span class="info-label">Experience</span>
+                                <span class="info-value">10+ Years</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Consultation Fee</span>
+                                <span id="doc-fee-value-2" class="info-value fee">₹600</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-actions">
+                        <button class="btn btn-secondary" onclick="openChatWithDoc(2)">
+                            <i class="fa-solid fa-comment-medical"></i> Consult & Chat
+                        </button>
+                        <button class="btn btn-primary" onclick="scrollToScheduling(2)">
+                            <i class="fa-solid fa-calendar-check"></i> Book Appointment
+                        </button>
+                    </div>
+                </article>
+
+            </section>
+        </section>
+
+        <!-- ================= APPOINTMENT SCHEDULING AREA ================= -->
+        <section id="scheduling-section" class="scheduling-container">
+            <h2>Available Consultation Slots</h2>
+            <p class="subtitle">Select a specialist and pick an available slot. Completing the booking fee secures your pending appointment instantly.</p>
+            
+            <div class="scheduling-layout">
+                <!-- Left: Doctor Select Card -->
+                <div class="doctor-selector">
+                    <div id="select-doc-card-1" class="doc-select-card active" onclick="selectDocForBooking(1)">
+                        <img class="doc-select-avatar" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=80&auto=format&fit=crop&q=80" alt="Dr. Vishal Parmar">
+                        <div class="doc-select-info">
+                            <h5>Dr. Vishal Parmar</h5>
+                            <span>Skin Specialist (₹800)</span>
+                        </div>
+                    </div>
+                    <div id="select-doc-card-2" class="doc-select-card" onclick="selectDocForBooking(2)">
+                        <img class="doc-select-avatar" src="https://images.unsplash.com/photo-1594824813573-246434de83fb?w=80&auto=format&fit=crop&q=80" alt="Dr. Ananya Sharma">
+                        <div class="doc-select-info">
+                            <h5>Dr. Ananya Sharma</h5>
+                            <span>Pediatrician (₹600)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Slots Calendar -->
+                <div class="slots-board">
+                    <div class="calendar-header">
+                        <div class="calendar-title" id="calendar-doctor-title">Dr. Vishal Parmar's Free Slots</div>
+                        <div class="status-legend">
+                            <div class="legend-item">
+                                <div class="legend-color legend-available"></div>
+                                <span>Available</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-pending"></div>
+                                <span>Pending</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-booked"></div>
+                                <span>Booked</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar Carousel Navigation -->
+                    <div class="calendar-carousel-controls">
+                        <button class="btn btn-secondary btn-sm" id="prev-days-btn" onclick="slideCalendar(-1)" style="flex: none; padding: 0.5rem 1rem;">
+                            <i class="fa-solid fa-chevron-left"></i> Previous
+                        </button>
+                        <span class="carousel-date-range" id="carousel-date-range-label" style="font-weight: 700; color: var(--accent-teal);">Loading...</span>
+                        <button class="btn btn-secondary btn-sm" id="next-days-btn" onclick="slideCalendar(1)" style="flex: none; padding: 0.5rem 1rem;">
+                            Next <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Slots Grid -->
+                    <div class="calendar-grid" id="slots-grid-container">
+                        <!-- Filled by app.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PATIENT TESTIMONIALS ================= -->
+        <section id="reviews" style="margin: 5rem 0;">
+            <div class="section-title-wrapper">
+                <h2>What Our Patients Say</h2>
+                <p>True feedback from verified patients who consulted our doctors.</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Booking was extremely smooth. I paid via UPI QR, my slot was marked pending immediately, and Dr. Vishal Parmar approved it within an hour. The chat was highly helpful."</p>
+                    <div class="reviewer-meta">
+                        <strong>Aarav Sharma</strong>
+                        <span>Dermatology Consultation</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Dr. Ananya Sharma is highly experienced and gentle with kids. The online chat is very helpful to ask quick follow-up questions about vaccination dosage."</p>
+                    <div class="reviewer-meta">
+                        <strong>Riya Verma</strong>
+                        <span>Pediatric Consultation</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                    <p>"Highly recommend MedVibe. The slot locking system is brilliant; you don't have to wait in clinic queues. Secure billing and direct messaging work seamlessly."</p>
+                    <div class="reviewer-meta">
+                        <strong>Kabir Das</strong>
+                        <span>General Care</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT & LOCATION SECTION ================= -->
+        <section id="contact" class="contact-container">
+            <div class="contact-grid">
+                <!-- Contact Form Card -->
+                <div class="contact-form-card">
+                    <h3>Get In Touch</h3>
+                    <p>Have questions about bookings or medical schedules? Send us a message.</p>
+                    <form onsubmit="event.preventDefault(); alert('Message sent successfully! We will get back to you shortly.'); this.reset();">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name</label>
+                            <input type="text" id="contact-name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" class="form-control" placeholder="name@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-msg">Your Message</label>
+                            <textarea id="contact-msg" class="form-control" rows="4" placeholder="How can we help you?" required style="resize: none; font-family: var(--font-body);"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Details & Map Card -->
+                <div class="contact-info-card">
+                    <h3>Clinic Location</h3>
+                    <p>Visit our diagnostics clinic for offline tests and consultations.</p>
+                    
+                    <div class="contact-details-list">
+                        <div class="contact-detail-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <strong>Clinic Address</strong><br>
+                                <span>12, Ring Road, Sector 5, Saket, New Delhi - 110017</span>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <strong>Helpline Numbers</strong><br>
+                                <span>+91 98765 43210 &nbsp;|&nbsp; +91 98765 43219</span>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <strong>Email Support</strong><br>
+                                <span>support@medvibe.com &nbsp;|&nbsp; info@medvibe.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Wrap Embed -->
+                    <div class="map-wrapper" style="margin-top: 1.5rem;">
+                        <iframe width="100%" height="230" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=230&amp;hl=en&amp;q=28.520448,77.213233(MedVibe%20Clinic)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" style="border:1px solid rgba(15, 23, 42, 0.08); border-radius:var(--radius-md);"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FLOATING CHAT WIDGET FOR PATIENT ================= -->
+    <button class="chat-widget-trigger" onclick="togglePatientChatWidget()">
+        <i class="fa-solid fa-comments-medical"></i>
+    </button>
+    
+    <div class="chat-container-panel" id="patient-chat-panel">
+        <div class="chat-header">
+            <div class="chat-header-user">
+                <i class="fa-solid fa-user-doctor" style="color: var(--accent-teal);"></i>
+                <div class="chat-header-info">
+                    <h4 id="chat-widget-title">Consultation Desk</h4>
+                    <span id="chat-widget-subtitle">Offline</span>
+                </div>
+            </div>
+            <button class="chat-header-close" onclick="togglePatientChatWidget()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <!-- Welcome selection screen for patient to choose doctor -->
+        <div class="chat-conversations-list" id="patient-chat-welcome">
+            <div class="chat-welcome-screen">
+                <i class="fa-solid fa-stethoscope"></i>
+                <h5>Select Doctor to Start Consultation</h5>
+                <p>Choose a doctor to discuss symptoms, reports, or checkups.</p>
+                
+                <button class="chat-select-doc-btn" onclick="startPatientChat(1)">
+                    <img class="chat-header-avatar" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=80&auto=format&fit=crop&q=80" alt="Dr. Vishal Parmar">
+                    <div>
+                        <strong>Dr. Vishal Parmar</strong><br>
+                        <small>Skin Specialist</small>
+                    </div>
+                </button>
+                <button class="chat-select-doc-btn" onclick="startPatientChat(2)">
+                    <img class="chat-header-avatar" src="https://images.unsplash.com/photo-1594824813573-246434de83fb?w=80&auto=format&fit=crop&q=80" alt="Dr. Ananya Sharma">
+                    <div>
+                        <strong>Dr. Ananya Sharma</strong><br>
+                        <small>Pediatrician</small>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Active Chat Area -->
+        <div class="chat-messages-area" id="patient-chat-messages" style="display: none;">
+            <!-- Chat history loaded dynamically -->
+        </div>
+        
+        <!-- Active Chat Input -->
+        <div class="chat-input-bar" id="patient-chat-input-bar" style="display: none;">
+            <input type="text" class="chat-input" id="patient-message-input" placeholder="Type a message..." onkeydown="handlePatientChatKeyDown(event)">
+            <button class="chat-send-btn" onclick="sendPatientMessage()">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= APPOINTMENT & PAYMENT WIZARD MODAL ================= -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-step-title"><i class="fa-solid fa-file-invoice-dollar" style="color:#0284c7;"></i> Booking Details</h3>
+                <button class="modal-close-btn" onclick="closePaymentModal()">&times;</button>
+            </div>
+            
+            <!-- STEP 1: PATIENT REGISTRATION FORM -->
+            <div class="modal-body" id="payment-intake-body">
+                <div class="payment-summary" style="margin-bottom: 1.25rem;">
+                    <div class="payment-sum-col">
+                        <h6>Consultant</h6>
+                        <p id="intake-doc-name">Dr. Vishal Parmar</p>
+                        <span id="intake-doc-specialty" style="font-size:0.75rem; color:var(--text-secondary); font-weight:700; text-transform:uppercase;">Skin Specialist</span>
+                    </div>
+                    <div class="payment-sum-col" style="text-align: right;">
+                        <h6>Consultation Fee</h6>
+                        <p id="intake-fee-amount" style="color:var(--status-available); font-weight:800; font-size:1.15rem;">₹800</p>
+                    </div>
+                </div>
+                
+                <h5 style="margin-bottom: 1rem; font-size: 0.95rem; border-bottom: 1px solid rgba(15, 23, 42, 0.05); padding-bottom: 0.4rem;">Patient Information</h5>
+                
+                <div class="form-group">
+                    <label for="patient-reg-name">Patient's Full Name</label>
+                    <input type="text" id="patient-reg-name" class="form-control" placeholder="Aarav Sharma" required>
+                </div>
+                <div class="form-group">
+                    <label for="patient-reg-phone">Mobile Number</label>
+                    <input type="tel" id="patient-reg-phone" class="form-control" placeholder="9876543210" required maxlength="12">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="patient-reg-problem">Briefly Describe Symptoms / Problem</label>
+                    <textarea id="patient-reg-problem" class="form-control" rows="3" placeholder="Describe symptoms e.g., rashes, dry skin, acne..." required style="resize:none; font-family:var(--font-body);"></textarea>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;" onclick="proceedToPaymentCheckout()">
+                    Proceed to Payment <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- STEP 2: SECURE CHECKOUT FORMS -->
+            <div class="modal-body" id="payment-form-body" style="display: none;">
+                <div class="payment-summary">
+                    <div class="payment-sum-col">
+                        <h6>Consultant</h6>
+                        <p id="pay-doc-name">Dr. Vishal Parmar</p>
+                        <span id="pay-doc-specialty" style="font-size:0.75rem; color:var(--text-secondary); font-weight:700; text-transform:uppercase;">Skin Specialist</span>
+                    </div>
+                    <div class="payment-sum-col" style="text-align: right;">
+                        <h6>Fee Amount</h6>
+                        <p class="fee" id="pay-fee-amount" style="color:var(--status-available);">₹800</p>
+                    </div>
+                </div>
+                
+                <h5 style="margin-bottom: 0.75rem; font-size: 0.9rem;">Select Payment Method</h5>
+                <div class="payment-methods">
+                    <button class="pay-method-tab active" id="btn-pay-card" onclick="setPaymentMethod('card')">
+                        <i class="fa-regular fa-credit-card"></i> Card Details
+                    </button>
+                    <button class="pay-method-tab" id="btn-pay-upi" onclick="setPaymentMethod('upi')">
+                        <i class="fa-solid fa-qrcode"></i> UPI QR Scan
+                    </button>
+                </div>
+                
+                <!-- Card Payment Pane -->
+                <div class="pay-pane active" id="pane-pay-card">
+                    <div class="form-group">
+                        <label for="card-name">Patient Name (as on card)</label>
+                        <input type="text" id="card-name" class="form-control" placeholder="Aarav Sharma" value="Aarav Sharma">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" class="form-control" placeholder="4111 2222 3333 4444" value="4111 2222 3333 4444" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="card-expiry">Expiry Date</label>
+                            <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY" value="12/28" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV</label>
+                            <input type="password" id="card-cvv" class="form-control" placeholder="***" value="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- UPI Payment Pane -->
+                <div class="pay-pane" id="pane-pay-upi">
+                    <div class="upi-qr-wrapper">
+                        <div class="qr-box">
+                            <img id="upi-qr-image" src="" alt="Clinic UPI QR Code" style="width:160px; height:160px; display:none; border-radius:8px; border: 1px solid var(--border-glass); padding:0.5rem; background:white; margin:0 auto;">
+                            <svg id="upi-qr-fallback" class="qr-placeholder" viewBox="0 0 100 100">
+                                <rect width="100" height="100" fill="white"/>
+                                <rect x="5" y="5" width="25" height="25" fill="black"/>
+                                <rect x="10" y="10" width="15" height="15" fill="white"/>
+                                <rect x="13" y="13" width="9" height="9" fill="black"/>
+                                
+                                <rect x="70" y="5" width="25" height="25" fill="black"/>
+                                <rect x="75" y="10" width="15" height="15" fill="white"/>
+                                <rect x="78" y="13" width="9" height="9" fill="black"/>
+                                
+                                <rect x="5" y="70" width="25" height="25" fill="black"/>
+                                <rect x="10" y="75" width="15" height="15" fill="white"/>
+                                <rect x="13" y="78" width="9" height="9" fill="black"/>
+                                
+                                <rect x="35" y="15" width="5" height="15" fill="black"/>
+                                <rect x="45" y="5" width="10" height="5" fill="black"/>
+                                <rect x="40" y="25" width="15" height="5" fill="black"/>
+                                <rect x="5" y="35" width="15" height="5" fill="black"/>
+                                <rect x="25" y="45" width="5" height="15" fill="black"/>
+                                <rect x="15" y="55" width="10" height="5" fill="black"/>
+                                <rect x="35" y="35" width="30" height="30" fill="black"/>
+                                <rect x="40" y="40" width="20" height="20" fill="white"/>
+                                <rect x="45" y="45" width="10" height="10" fill="black"/>
+                                <rect x="70" y="35" width="25" height="5" fill="black"/>
+                                <rect x="85" y="45" width="5" height="15" fill="black"/>
+                                <rect x="75" y="55" width="10" height="5" fill="black"/>
+                                <rect x="35" y="70" width="5" height="20" fill="black"/>
+                                <rect x="45" y="80" width="20" height="5" fill="black"/>
+                                <rect x="50" y="70" width="15" height="5" fill="black"/>
+                                <rect x="70" y="75" width="20" height="5" fill="black"/>
+                                <rect x="75" y="85" width="15" height="10" fill="black"/>
+                                <rect x="90" y="70" width="5" height="10" fill="black"/>
+                            </svg>
+                        </div>
+                        <div class="qr-details">
+                            <p><strong>Scan QR using GPay, PhonePe, or Paytm</strong></p>
+                            <p style="font-size:0.75rem; margin-top:0.25rem;">UPI ID: medvibe@upi</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="processPayment()">
+                    <i class="fa-solid fa-lock"></i> Pay Fee & Send Request
+                </button>
+            </div>
+            
+            <div class="payment-loader" id="payment-loader-screen">
+                <div class="spinner"></div>
+                <div>
+                    <h5>Verifying Payment Details</h5>
+                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.25rem;">Do not close or refresh this page...</p>
+                </div>
+            </div>
+            
+            <div class="payment-success" id="payment-success-screen">
+                <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+                <div>
+                    <h5 style="color:var(--status-available);">Booking Confirmed!</h5>
+                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.25rem;">Your consultation has been successfully booked for <span id="success-fee" style="font-weight:700;">₹800</span>. An SMS confirmation was sent to your phone!</p>
+                </div>
+                <button class="btn btn-secondary" style="width:100%; margin-top:1rem;" onclick="closePaymentModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer style="background-color: var(--bg-secondary); padding: 3rem 2rem 2rem 2rem; border-top: 1px solid var(--border-glass); margin-top: 5rem;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-glass);">
+            <div>
+                <h4 style="font-family: var(--font-heading); color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i class="fa-solid fa-heart-pulse" style="color: var(--accent-teal);"></i> MedVibe</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">Digital scheduling, secure billing, and secure consultations directly with medical experts.</p>
+            </div>
+            <div>
+                <h5 style="color: var(--text-primary); margin-bottom: 1rem;">Clinic Timings</h5>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">Mon - Sat: 09:00 AM - 07:00 PM<br>Sunday: Emergency Consultations Only</p>
+            </div>
+            <div>
+                <a href="doctor.html" target="_blank" class="btn btn-secondary btn-sm" style="width:100%; margin-top:0.5rem; text-decoration: none; border-color: var(--border-glass); color: var(--text-secondary);">
+                    <i class="fa-solid fa-user-shield"></i> Authorized Doctor Area
+                </a>
+                <a href="admin.html" target="_blank" class="btn btn-secondary btn-sm" style="width:100%; margin-top:0.5rem; text-decoration: none; border-color: var(--border-glass); color: var(--text-secondary);">
+                    <i class="fa-solid fa-gears"></i> Admin Settings Panel
+                </a>
+            </div>
+        </div>
+        <div style="max-width: 1200px; margin: 1.5rem auto 0 auto; text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+            &copy; 2026 MedVibe Diagnostics Clinic. All rights reserved. Registered clinic under Saket Medical Council, Delhi.
+        </div>
+    </footer>
+
+    <!-- Core Logic Handler -->
+    <script src="app.js"></script>
+</body>
+</html>

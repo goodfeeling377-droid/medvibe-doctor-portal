@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedVibe | Secure Doctor Workspace</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Local Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background: radial-gradient(circle at center, #f8fafc 0%, #cbd5e1 100%); min-height: 100vh;">
+
+    <!-- Secure Header -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-user-shield"></i>
+            <span>MedVibe Portal</span>
+        </div>
+        <div>
+            <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Public Website
+            </a>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <!-- ================= DOCTOR LOGIN GATEWAY ================= -->
+        <div id="doctor-login-pane" class="login-wrapper">
+            <div class="login-card">
+                <div class="login-icon-header">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3>Doctor Portal Login</h3>
+                <p>Select your name and enter your secure PIN to access patient records and consultations.</p>
+                
+                <div id="login-error-msg" class="login-error" style="display: none;">
+                    <i class="fa-solid fa-circle-exclamation"></i> Incorrect PIN. Please try again.
+                </div>
+
+                <div class="form-group" style="text-align: left;">
+                    <label for="login-doc-select">Select Doctor Account</label>
+                    <select id="login-doc-select" class="form-control" style="background-color: var(--bg-primary); border-color: var(--border-glass);">
+                        <option value="1">Dr. Vishal Parmar (Skin Specialist)</option>
+                        <option value="2">Dr. Ananya Sharma (Pediatrician)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
+                    <label for="login-doc-pin">Enter Security PIN</label>
+                    <input type="password" id="login-doc-pin" class="form-control" placeholder="••••" maxlength="4" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;">
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%;" onclick="attemptDoctorLogin()">
+                    <i class="fa-solid fa-key"></i> Authenticate & Enter
+                </button>
+
+                <div style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted);">
+                    <p>Demo PINs:<br>Dr. Sameer: <strong>1111</strong> &nbsp;|&nbsp; Dr. Ananya: <strong>2222</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= AUTHENTICATED DOCTOR WORKSPACE ================= -->
+        <div id="doctor-workspace-pane" class="portal-view" style="display: none;">
+            <div class="doctor-dash">
+                <!-- Dashboard Header -->
+                <div class="dash-heading">
+                    <div>
+                        <h2 id="active-doc-dashboard-title">Doctor Dashboard</h2>
+                        <p style="color: var(--text-secondary); margin-top: 0.25rem;">Authorized Medical Workspace</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span class="specialty-tag" id="active-doc-specialty-tag">Cardiology</span>
+                        <button class="btn btn-secondary btn-sm" onclick="doctorLogout()">
+                            <i class="fa-solid fa-power-off"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Stats Grid -->
+                <div class="doc-stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div class="stat-meta">
+                            <h5>Total Earnings</h5>
+                            <p id="active-doc-earnings">₹0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon amber"><i class="fa-solid fa-calendar-minus"></i></div>
+                        <div class="stat-meta">
+                            <h5>Blocked Slots</h5>
+                            <p id="active-doc-pending-count">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-meta">
+                            <h5>Confirmed Bookings</h5>
+                            <p id="active-doc-confirmed-count">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Side-by-Side Dashboard Workspace -->
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; margin-top: 1rem; align-items: start;">
+                    <!-- Left: Upcoming Appointments -->
+                    <div class="requests-panel" style="margin-top: 0;">
+                        <h3><i class="fa-regular fa-calendar-check" style="color: var(--status-available);"></i> Confirmed Appointments</h3>
+                        <div id="active-doc-requests-list" style="max-height: 400px; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Schedule Slot Manager -->
+                    <div class="requests-panel" style="margin-top: 0;">
+                        <h3><i class="fa-solid fa-calendar-xmark" style="color: var(--status-pending);"></i> Block/Off Free Slots</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 1rem;">Mark specific slots unavailable when you are busy. Blocked slots show as "Busy" to patients.</p>
+                        <div id="active-doc-slot-manager" style="max-height: 380px; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Patient Chats -->
+                <div class="requests-panel">
+                    <h3>Patient Consultation Hub</h3>
+                    <div class="doc-chat-section">
+                        <div class="doc-chat-sidebar">
+                            <div class="doc-chat-sidebar-header">Patient Inbox</div>
+                            <div class="doc-chat-inbox-list" id="active-doc-chat-inbox">
+                                <!-- Patient conversation lists -->
+                            </div>
+                        </div>
+                        <div class="doc-chat-body" id="active-doc-chat-body">
+                            <div class="doc-chat-empty-state">
+                                <i class="fa-solid fa-comments"></i>
+                                <p>Select a patient from the inbox sidebar to start consulting.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer style="background-color: var(--bg-secondary); padding: 2rem; border-top: 1px solid var(--border-glass); margin-top: 5rem; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h4 style="font-family: var(--font-heading); color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; margin: 0;"><i class="fa-solid fa-heart-pulse" style="color: var(--accent-teal);"></i> MedVibe Console</h4>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration: none; border-color: var(--border-glass); color: var(--text-secondary);">
+                    <i class="fa-solid fa-house"></i> Patient Site
+                </a>
+                <a href="admin.html" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration: none; border-color: var(--border-glass); color: var(--text-secondary);">
+                    <i class="fa-solid fa-gears"></i> Admin Panel
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Logic Handler -->
+    <script src="app.js"></script>
+</body>
+</html>
